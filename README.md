@@ -1,135 +1,200 @@
+# DeFi Stable Coin
 
-# defi-stable-coin
+<!-- <div align="center">
+  <a href="https://github.com/Ramprasad4121/defi-stable-coin">
+    <img src="docs/images/defi-banner.png" alt="DeFi Stable Coin Banner" width="600" height="300">
+  </a>
+</div> -->
 
-## Requirements
+<div align="center">
+  Collateralized Decentralized Stablecoin (DSC) System
+  <br />
+  <a href="#about"><strong>Explore the demo »</strong></a>
+  <br />
+  <br />
+  <a href="https://github.com/Ramprasad4121/defi-stable-coin/issues/new?assignees=&labels=bug&template=01_BUG_REPORT.md&title=bug%3A+">Report a Bug</a>
+  ·
+  <a href="https://github.com/Ramprasad4121/defi-stable-coin/issues/new?assignees=&labels=enhancement&template=02_FEATURE_REQUEST.md&title=feat%3A+">Request a Feature</a>
+  ·
+  <a href="https://github.com/Ramprasad4121/defi-stable-coin/issues/new?assignees=&labels=question&template=04_SUPPORT_QUESTION.md&title=support%3A+">Ask a Question</a>
+</div>
 
-- [git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git)
-  - You'll know you did it right if you can run `git --version` and you see a response like `git version x.x.x`
-- [foundry](https://getfoundry.sh/)
-  - You'll know you did it right if you can run `forge --version` and you see a response like `forge 0.2.0 (816e00b 2023-03-16T00:05:26.396218Z)`
+<div align="center">
+<br />
 
-## Quickstart
+[![Solidity](https://img.shields.io/badge/Solidity-^0.8.20-blue)](https://soliditylang.org)
+[![License: MIT](https://img.shields.io/badge/License-MIT-green)](LICENSE)
 
-```
-git clone https://github.com/Ramprasad4121/defi-stable-coin.git
-cd defi-stable-coin
-forge build
-```
+</div>
 
+<details open="open">
+<summary>Table of Contents</summary>
 
-# Usage
+- [DeFi Stable Coin](#defi-stable-coin)
+  - [About](#about)
+    - [Built With](#built-with)
+  - [Getting Started](#getting-started)
+    - [Prerequisites](#prerequisites)
+    - [Installation](#installation)
+  - [Usage](#usage)
+    - [Local Development](#local-development)
+    - [Testnet (Sepolia)](#testnet-sepolia)
+    - [Interactions](#interactions)
+    - [Testing](#testing)
+    - [Other Commands](#other-commands)
+  - [Roadmap](#roadmap)
+  - [Support](#support)
+  - [Project Assistance](#project-assistance)
+  - [Contributing](#contributing)
+  - [Authors \& Contributors](#authors--contributors)
+  - [Security](#security)
+  - [License](#license)
+  - [Acknowledgements](#acknowledgements)
 
-## Start a local node
+</details>
 
-```
-make anvil
-```
+---
 
-## Deploy
+## About
 
-This will default to your local node. You need to have it running in another terminal in order for it to deploy.
+A decentralized stablecoin (DSC) protocol backed by over-collateralized assets like WETH. Users deposit collateral to mint DSC, with liquidation mechanisms for stability. Built with Foundry for robust testing (unit, fuzzing) and easy deployment to local or Sepolia testnet.
 
-```
-make deploy
-```
+Why this? To showcase DeFi primitives: collateral management, minting/burning, and security via Slither analysis.
 
-## Deploy - Other Network
+<!-- <details>
+<summary>Screenshots</summary>
+<br>
 
-[See below](#deployment-to-a-testnet-or-mainnet)
+|                               Local Deployment Console                               |                               Mint DSC Transaction                               |
+| :-------------------------------------------------------------------: | :--------------------------------------------------------------------: |
+| <img src="docs/images/deploy-local.png" title="Anvil Deployment" width="100%"> | <img src="docs/images/mint-dsc.png" title="Mint Transaction" width="100%"> |
 
-## Testing
+> Add screenshots of `make deploy` and `cast` mint command.
 
-We talk about 4 test tiers in the video.
+</details> -->
 
-1. Unit
-2. Integration
-3. Forked
-4. Staging
+### Built With
 
-In this repo i cover #1 and Fuzzing.
+- [Foundry](https://book.getfoundry.sh/) – Forge, Cast, Anvil
+- Solidity ^0.8.20
+- [Slither](https://github.com/crytic/slither) – Static analysis
+- [Make](https://www.gnu.org/software/make/) – Automation
 
-```
-forge test
-```
+## Getting Started
 
-### Test Coverage
+### Prerequisites
 
-```
-forge coverage
-```
+- Git (`git --version`)
+- Foundry (`curl -L https://foundry.paradigm.xyz | bash && foundryup`; `forge --version`)
 
-and for coverage based testing:
+### Installation
 
-```
-forge coverage --report debug
-```
+1. Clone:
+   ```bash
+   git clone https://github.com/Ramprasad4121/defi-stable-coin.git
+   cd defi-stable-coin
+   ```
 
-# Deployment to a testnet or mainnet
+2. Build:
+   ```bash
+   forge build
+   ```
 
-1. Setup environment variables
+3. Setup `.env` from `.env.example`: Add `SEPOLIA_RPC_URL` (Alchemy), `PRIVATE_KEY` (test only), `ETHERSCAN_API_KEY` (optional).
 
-You'll want to set your `SEPOLIA_RPC_URL` and `PRIVATE_KEY` as environment variables. You can add them to a `.env` file, similar to what you see in `.env.example`.
+## Usage
 
-- `PRIVATE_KEY`: The private key of your account (like from [metamask](https://metamask.io/)). **NOTE:** FOR DEVELOPMENT, PLEASE USE A KEY THAT DOESN'T HAVE ANY REAL FUNDS ASSOCIATED WITH IT.
-  - You can [learn how to export it here](https://metamask.zendesk.com/hc/en-us/articles/360015289632-How-to-Export-an-Account-Private-Key).
-- `SEPOLIA_RPC_URL`: This is url of the sepolia testnet node you're working with. You can get setup with one for free from [Alchemy](https://alchemy.com/?a=673c802981)
+### Local Development
 
-Optionally, add your `ETHERSCAN_API_KEY` if you want to verify your contract on [Etherscan](https://etherscan.io/).
+- Start Anvil:
+  ```bash
+  make anvil
+  ```
 
-1. Get testnet ETH
+- Deploy:
+  ```bash
+  make deploy
+  ```
 
-Head over to [faucets.chain.link](https://faucets.chain.link/) and get some testnet ETH. You should see the ETH show up in your metamask.
+### Testnet (Sepolia)
 
-2. Deploy
+1. Fund: [Chainlink Faucet](https://faucets.chain.link/).
+2. Deploy:
+   ```bash
+   make deploy ARGS="--network sepolia"
+   ```
 
-```
-make deploy ARGS="--network sepolia"
-```
+### Interactions
 
-## Scripts
+- Deposit WETH:
+  ```bash
+  cast send 0x091EA0838eBD5b7ddA2F2A641B068d6D59639b98 "depositCollateral()" --value 0.1ether --private-key $PRIVATE_KEY --rpc-url $SEPOLIA_RPC_URL
+  ```
 
-Instead of scripts, we can directly use the `cast` command to interact with the contract.
+- Approve & Mint DSC:
+  ```bash
+  cast send <DSC_ADDRESS> "approve(address,uint256)" <MINTER> <AMOUNT> --private-key $PRIVATE_KEY --rpc-url $SEPOLIA_RPC_URL
+  cast send 0x091EA0838eBD5b7ddA2F2A641B068d6D59639b98 "mintDsc(uint256)" <AMOUNT> --private-key $PRIVATE_KEY --rpc-url $SEPOLIA_RPC_URL
+  ```
 
-For example, on Sepolia:
+### Testing
 
-1. Get some WETH
+- Unit & Fuzz:
+  ```bash
+  forge test
+  ```
 
-```
-cast send 0xdd13E55209Fd76AfE204dBda4007C227904f0a81 "deposit()" --value 0.1ether --rpc-url $SEPOLIA_RPC_URL --private-key $PRIVATE_KEY
-```
+- Coverage:
+  ```bash
+  forge coverage --report lcov
+  ```
 
-2. Approve the WETH
+### Other Commands
 
-```
-cast send 0xdd13E55209Fd76AfE204dBda4007C227904f0a81 "approve(address,uint256)" 0x091EA0838eBD5b7ddA2F2A641B068d6D59639b98 1000000000000000000 --rpc-url $SEPOLIA_RPC_URL --private-key $PRIVATE_KEY
-```
+- Format: `forge fmt`
+- Gas snapshot: `forge snapshot`
+- Slither: `slither . --config-file slither.config.json`
+- Clean: `make clean`
 
-3. Deposit and Mint DSC
+## Roadmap
 
-```
-cast send 0x091EA0838eBD5b7ddA2F2A641B068d6D59639b98 "depositCollateralAndMintDsc(address,uint256,uint256)" 0xdd13E55209Fd76AfE204dBda4007C227904f0a81 100000000000000000 10000000000000000 --rpc-url $SEPOLIA_RPC_URL --private-key $PRIVATE_KEY
-```
+[Open issues](https://github.com/Ramprasad4121/defi-stable-coin/issues).
 
-## Estimate gas
+- Enhancements: Liquidation auctions, oracles
+- Bugs: Vote with 👍
 
-You can estimate how much gas things cost by running:
+Future: Mainnet deployment, frontend.
 
-```
-forge snapshot
-```
+## Support
 
-And you'll see an output file called `.gas-snapshot`
+- [Issues](https://github.com/Ramprasad4121/defi-stable-coin/issues/new?assignees=&labels=question&template=04_SUPPORT_QUESTION.md&title=support%3A+)
+- [X](https://x.com/0xramprasad)
 
-# Formatting
+## Project Assistance
 
-To run code formatting:
+- ⭐ [Star](https://github.com/Ramprasad4121/defi-stable-coin)
+- Tweet: "#DeFi #Stablecoin Foundry"
+- Blog: [Dev.to](https://dev.to/)
 
-```
-forge fmt
-```
+## Contributing
 
-# Slither
+Fork, branch (`git checkout -b feature/xyz`), commit, PR. See [CONTRIBUTING.md](docs/CONTRIBUTING.md).
 
-```
-slither :; slither . --config-file slither.config.json
-```
+## Authors & Contributors
+
+- [Ramprasad4121](https://github.com/Ramprasad4121)
+
+[Contributors](https://github.com/Ramprasad4121/defi-stable-coin/contributors)
+
+## Security
+
+Slither-analyzed; audit before prod. Report: [SECURITY.md](docs/SECURITY.md). "As is."
+
+## License
+
+MIT License. See [LICENSE](LICENSE).
+
+## Acknowledgements
+
+- [Foundry](https://getfoundry.sh/) – Dev toolkit
+- Ethereum DeFi community.
