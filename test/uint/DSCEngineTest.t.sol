@@ -2,7 +2,7 @@
 
 pragma solidity ^0.8.18;
 
-import {Test} from "forge-std/Test.sol";
+import {Test, console} from "forge-std/Test.sol";
 import {DeployDSC} from "../../script/DeployDSC.s.sol";
 import {DecentralizedStableCoin} from "../../src/DecentralizedStableCoin.sol";
 import {DSCEngine} from "../../src/DSCEngine.sol";
@@ -263,6 +263,8 @@ contract DSCEngineTest is Test {
     function testLiquidationPrecision() public {
         uint256 expectedLiquidationPrecision = 100;
         uint256 actualLiquidationPrecision = dsce.getLiquidationPrecision();
+        console.log("Expected Liquidation Precision: ", expectedLiquidationPrecision);
+        console.log("Actual Liquidation Precision: ", actualLiquidationPrecision);
         assertEq(actualLiquidationPrecision, expectedLiquidationPrecision);
     }
 } 
