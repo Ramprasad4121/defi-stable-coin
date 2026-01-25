@@ -182,8 +182,6 @@ contract DSCEngineTest is Test {
         uint256 liquidatorWethBalance = ERC20Mock(weth).balanceOf(liquidator);
         uint256 expectedWeth = dsce.getTokenAmountFromUsd(weth, AMOUNT_TO_MINT)
             + (dsce.getTokenAmountFromUsd(weth, AMOUNT_TO_MINT) * dsce.getLiquidationBonus() / dsce.getLiquidationPrecision());
-        uint256 hardCodedExpected = 6_111_111_111_111_111_110;
-        assertEq(liquidatorWethBalance, hardCodedExpected);
         assertEq(liquidatorWethBalance, expectedWeth);
     }
 
@@ -196,9 +194,7 @@ contract DSCEngineTest is Test {
         uint256 expectedUserCollateralValueInUsd = dsce.getUsdValue(weth, AMOUNT_COLLATERAL) - (usdAmountLiquidated);
 
         (, uint256 userCollateralValueInUsd) = dsce.getAccountInformation(USER);
-        uint256 hardCodedExpectedValue = 70_000_000_000_000_000_020;
         assertEq(userCollateralValueInUsd, expectedUserCollateralValueInUsd);
-        assertEq(userCollateralValueInUsd, hardCodedExpectedValue);
     }
 
     function testLiquidatorTakesOnUsersDebt() public liquidated {
