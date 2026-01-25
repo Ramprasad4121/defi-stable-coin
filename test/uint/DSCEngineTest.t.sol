@@ -265,4 +265,4 @@ contract DSCEngineTest is Test {
         uint256 actualLiquidationPrecision = dsce.getLiquidationPrecision();
         assertEq(actualLiquidationPrecision, expectedLiquidationPrecision);
     }
-}
+} 
