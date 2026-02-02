@@ -180,15 +180,21 @@ contract DSCEngineTest is Test {
 
     function testLiquidationPayoutIsCorrect() public liquidated {
         uint256 liquidatorWethBalance = ERC20Mock(weth).balanceOf(liquidator);
-        uint256 expectedWeth = dsce.getTokenAmountFromUsd(weth, AMOUNT_TO_MINT)
-            + (dsce.getTokenAmountFromUsd(weth, AMOUNT_TO_MINT) * dsce.getLiquidationBonus() / dsce.getLiquidationPrecision());
+        uint256 expectedWeth =
+            dsce.getTokenAmountFromUsd(weth, AMOUNT_TO_MINT)
+            + (dsce.getTokenAmountFromUsd(weth, AMOUNT_TO_MINT)
+                * dsce.getLiquidationBonus()
+                / dsce.getLiquidationPrecision());
         assertEq(liquidatorWethBalance, expectedWeth);
     }
 
     function testUserStillHasSomeEthAfterLiquidation() public liquidated {
         // Get how much WETH the user lost
-        uint256 amountLiquidated = dsce.getTokenAmountFromUsd(weth, AMOUNT_TO_MINT)
-            + (dsce.getTokenAmountFromUsd(weth, AMOUNT_TO_MINT) * dsce.getLiquidationBonus() / dsce.getLiquidationPrecision());
+        uint256 amountLiquidated =
+            dsce.getTokenAmountFromUsd(weth, AMOUNT_TO_MINT)
+            + (dsce.getTokenAmountFromUsd(weth, AMOUNT_TO_MINT)
+                * dsce.getLiquidationBonus()
+                / dsce.getLiquidationPrecision());
 
         uint256 usdAmountLiquidated = dsce.getUsdValue(weth, amountLiquidated);
         uint256 expectedUserCollateralValueInUsd = dsce.getUsdValue(weth, AMOUNT_COLLATERAL) - (usdAmountLiquidated);
@@ -267,4 +273,4 @@ contract DSCEngineTest is Test {
         console.log("Actual Liquidation Precision: ", actualLiquidationPrecision);
         assertEq(actualLiquidationPrecision, expectedLiquidationPrecision);
     }
-} 
+}
