@@ -189,7 +189,7 @@ contract DSCEngineTest is Test {
 
     function testUserStillHasSomeEthAfterLiquidation() public liquidated {
         // Get how much WETH the user lost
-        uint256 amountLiquidated =  dsce.getTokenAmountFromUsd(weth, AMOUNT_TO_MINT)
+        uint256 amountLiquidated = dsce.getTokenAmountFromUsd(weth, AMOUNT_TO_MINT)
             + (dsce.getTokenAmountFromUsd(weth, AMOUNT_TO_MINT)
                 * dsce.getLiquidationBonus()
                 / dsce.getLiquidationPrecision());
